@@ -72,7 +72,7 @@ class WASDControls
 	private moveLeft = false;
 	private moveRight = false;
 
-	enabled: boolean = true;
+	public enabled: boolean = false;
 	private velocity = new THREE.Vector3(1,1,1);
 
 	private static PI_2 = Math.PI / 2;
@@ -171,6 +171,72 @@ class WASDControls
 	}
 }
 
+function lockPointer(controls: WASDControls)
+{
+    const pointerlockerror = (event) => {
+		document.addEventListener('keydown', (event) => {
+			if (event.keyCode == 27) { // ESC
+				controls.enabled = false;
+				blocker.style.display = 'block';
+				message.style.display = 'none';
+			}
+		}, false);
+
+        message.innerHTML = document.getElementById('errorMessage').innerHTML;
+		controls.enabled = true;
+	};
+
+	var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+	if (havePointerLock)
+    {
+		const _body: any = document.body;
+		const _doc: any = document;
+		_body.requestPointerLock = _body.requestPointerLock || _body.mozRequestPointerLock || _body.webkitRequestPointerLock;
+		const pointerlockchange = (event) => {
+			if (_doc.pointerLockElement === _body || _doc.mozPointerLockElement === _body || _doc.webkitPointerLockElement === _body)
+            {
+				controls.enabled = true;
+			}
+            else
+            {
+				controls.enabled = false;
+			}
+		};
+
+		document.addEventListener('pointerlockchange', pointerlockchange, false);
+		document.addEventListener('mozpointerlockchange', pointerlockchange, false);
+		document.addEventListener('webkitpointerlockchange', pointerlockchange, false);
+		document.addEventListener('pointerlockerror', pointerlockerror, false);
+		document.addEventListener('mozpointerlockerror', pointerlockerror, false);
+		document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
+
+		if (/Firefox/i.test(navigator.userAgent))
+        {
+			var fullscreenchange = (event) => {
+				if (_doc.fullscreenElement === _body || _doc.mozFullscreenElement === _body || _doc.mozFullScreenElement === _body) {
+					_doc.removeEventListener('fullscreenchange', fullscreenchange);
+					_doc.removeEventListener('mozfullscreenchange', fullscreenchange);
+					_body.requestPointerLock();
+					controls.enabled = true;
+				} else
+					controls.enabled = false;
+			};
+			_doc.addEventListener('fullscreenchange', fullscreenchange, false);
+			_doc.addEventListener('mozfullscreenchange', fullscreenchange, false);
+			_body.requestFullscreen = _body.requestFullscreen || _body.mozRequestFullscreen || _body.mozRequestFullScreen || _body.webkitRequestFullscreen;
+			_body.requestFullscreen();
+		}
+        else
+        {
+			_body.requestPointerLock();
+		}
+	}
+    else
+    {
+		pointerlockerror(null);
+	}
+}
+
 window.onload = () =>
 {
     const elem = document.getElementById('container');
@@ -243,11 +309,7 @@ window.onload = () =>
 				return;
 			else if (!controls.enabled)
             {
-				//lockPointer(controls);
-			}
-            else
-            {
-				//mouseShooter.shoot();
+				lockPointer(controls);
 			}
 		}, false);
 

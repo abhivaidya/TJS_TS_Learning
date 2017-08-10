@@ -46,7 +46,7 @@ var WASDControls = (function () {
         this.moveBackward = false;
         this.moveLeft = false;
         this.moveRight = false;
-        this.enabled = true;
+        this.enabled = false;
         this.velocity = new THREE.Vector3(1, 1, 1);
         camera.rotation.set(0, 0, 0);
         this.pitchObject = new THREE.Object3D();
@@ -119,6 +119,61 @@ var WASDControls = (function () {
     return WASDControls;
 }());
 WASDControls.PI_2 = Math.PI / 2;
+function lockPointer(controls) {
+    var pointerlockerror = function (event) {
+        document.addEventListener('keydown', function (event) {
+            if (event.keyCode == 27) {
+                controls.enabled = false;
+                blocker.style.display = 'block';
+                message.style.display = 'none';
+            }
+        }, false);
+        message.innerHTML = document.getElementById('errorMessage').innerHTML;
+        controls.enabled = true;
+    };
+    var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+    if (havePointerLock) {
+        var _body_1 = document.body;
+        var _doc_1 = document;
+        _body_1.requestPointerLock = _body_1.requestPointerLock || _body_1.mozRequestPointerLock || _body_1.webkitRequestPointerLock;
+        var pointerlockchange = function (event) {
+            if (_doc_1.pointerLockElement === _body_1 || _doc_1.mozPointerLockElement === _body_1 || _doc_1.webkitPointerLockElement === _body_1) {
+                controls.enabled = true;
+            }
+            else {
+                controls.enabled = false;
+            }
+        };
+        document.addEventListener('pointerlockchange', pointerlockchange, false);
+        document.addEventListener('mozpointerlockchange', pointerlockchange, false);
+        document.addEventListener('webkitpointerlockchange', pointerlockchange, false);
+        document.addEventListener('pointerlockerror', pointerlockerror, false);
+        document.addEventListener('mozpointerlockerror', pointerlockerror, false);
+        document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
+        if (/Firefox/i.test(navigator.userAgent)) {
+            var fullscreenchange = function (event) {
+                if (_doc_1.fullscreenElement === _body_1 || _doc_1.mozFullscreenElement === _body_1 || _doc_1.mozFullScreenElement === _body_1) {
+                    _doc_1.removeEventListener('fullscreenchange', fullscreenchange);
+                    _doc_1.removeEventListener('mozfullscreenchange', fullscreenchange);
+                    _body_1.requestPointerLock();
+                    controls.enabled = true;
+                }
+                else
+                    controls.enabled = false;
+            };
+            _doc_1.addEventListener('fullscreenchange', fullscreenchange, false);
+            _doc_1.addEventListener('mozfullscreenchange', fullscreenchange, false);
+            _body_1.requestFullscreen = _body_1.requestFullscreen || _body_1.mozRequestFullscreen || _body_1.mozRequestFullScreen || _body_1.webkitRequestFullscreen;
+            _body_1.requestFullscreen();
+        }
+        else {
+            _body_1.requestPointerLock();
+        }
+    }
+    else {
+        pointerlockerror(null);
+    }
+}
 window.onload = function () {
     var elem = document.getElementById('container');
     elem.innerHTML = "";
@@ -179,10 +234,7 @@ window.onload = function () {
             if (element.nodeName == 'A')
                 return;
             else if (!controls_1.enabled) {
-                //lockPointer(controls);
-            }
-            else {
-                //mouseShooter.shoot();
+                lockPointer(controls_1);
             }
         }, false);
         // START THE ENGINE
