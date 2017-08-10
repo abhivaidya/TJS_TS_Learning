@@ -10,16 +10,16 @@
         "spec": "latest",
         "type": "tag"
       },
-      "E:\\Personal\\TJS_TS_Learning\\definitions"
+      "E:\\Personal\\TJS_TS_Learning\\lib"
     ]
   ],
   "_from": "@types/three@latest",
-  "_id": "@types/three@0.84.18",
+  "_id": "@types/three@0.84.19",
   "_inCache": true,
   "_location": "/@types/three",
   "_npmOperationalInternal": {
     "host": "s3://npm-registry-packages",
-    "tmp": "tmp/three-0.84.18.tgz_1500319726394_0.7289456625003368"
+    "tmp": "tmp/three-0.84.19.tgz_1501006363090_0.3719617498572916"
   },
   "_npmUser": {
     "name": "types",
@@ -39,11 +39,11 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/@types/three/-/three-0.84.18.tgz",
-  "_shasum": "761f62a08845a280fea78d05a5b524c18c3ec390",
+  "_resolved": "https://registry.npmjs.org/@types/three/-/three-0.84.19.tgz",
+  "_shasum": "8ee4c9c045fc6ece78f794ca33ea628825403d17",
   "_shrinkwrap": null,
   "_spec": "@types/three",
-  "_where": "E:\\Personal\\TJS_TS_Learning\\definitions",
+  "_where": "E:\\Personal\\TJS_TS_Learning\\lib",
   "contributors": [
     {
       "name": "Kon",
@@ -101,9 +101,9 @@
   "devDependencies": {},
   "directories": {},
   "dist": {
-    "integrity": "sha512-ZvGKIHhtF4fC+V6S3AKPKrGjjXUSGx19VwVaSIIEsBXnIdcoUXxa7K2n1kNCslZF+5ae70ktDKwFIunpFkMUCg==",
-    "shasum": "761f62a08845a280fea78d05a5b524c18c3ec390",
-    "tarball": "https://registry.npmjs.org/@types/three/-/three-0.84.18.tgz"
+    "integrity": "sha512-5oBjFOGsJ6cvRaPQC+4S9Za5t3ng+HRr04MQJ75bn2O6W3hdxEE4jZGMCvf1br6EZUJBWHGiQV3+ta2KFQisIg==",
+    "shasum": "8ee4c9c045fc6ece78f794ca33ea628825403d17",
+    "tarball": "https://registry.npmjs.org/@types/three/-/three-0.84.19.tgz"
   },
   "license": "MIT",
   "main": "",
@@ -123,6 +123,6 @@
   },
   "scripts": {},
   "typeScriptVersion": "2.0",
-  "typesPublisherContentHash": "89a85d99d162d590bb4c62f85ff05abd8bf02b58e61f50d1efafcc6cb791ea50",
-  "version": "0.84.18"
+  "typesPublisherContentHash": "6bcba43f025d0418318ee87718e708b5596cde019d9c73c0231e69cca710fe19",
+  "version": "0.84.19"
 }

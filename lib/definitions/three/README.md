@@ -8,7 +8,7 @@ This package contains type definitions for three.js (http://mrdoob.github.com/th
 Files were exported from https://www.github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/three
 
 Additional Details
- * Last updated: Mon, 17 Jul 2017 19:27:11 GMT
+ * Last updated: Tue, 25 Jul 2017 17:56:27 GMT
  * Dependencies: webvr-api
  * Global values: Detector, THREE
 
