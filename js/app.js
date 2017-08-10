@@ -114,6 +114,7 @@ var WASDControls = (function () {
         if (this.moveRight)
             this.velocity.x += step;
         this.yawObject.translateX(this.velocity.x * delta);
+        this.yawObject.translateY(this.velocity.y * delta);
         this.yawObject.translateZ(this.velocity.z * delta);
     };
     return WASDControls;
@@ -123,12 +124,10 @@ function lockPointer(controls) {
     var pointerlockerror = function (event) {
         document.addEventListener('keydown', function (event) {
             if (event.keyCode == 27) {
+                // ESC
                 controls.enabled = false;
-                blocker.style.display = 'block';
-                message.style.display = 'none';
             }
         }, false);
-        message.innerHTML = document.getElementById('errorMessage').innerHTML;
         controls.enabled = true;
     };
     var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;

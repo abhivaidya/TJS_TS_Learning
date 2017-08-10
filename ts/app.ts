@@ -167,6 +167,7 @@ class WASDControls
             this.velocity.x += step;
 
 		this.yawObject.translateX(this.velocity.x * delta);
+		this.yawObject.translateY(this.velocity.y * delta);
 		this.yawObject.translateZ(this.velocity.z * delta);
 	}
 }
@@ -175,15 +176,14 @@ function lockPointer(controls: WASDControls)
 {
     const pointerlockerror = (event) => {
 		document.addEventListener('keydown', (event) => {
-			if (event.keyCode == 27) { // ESC
+			if (event.keyCode == 27)
+            {
+                // ESC
 				controls.enabled = false;
-				blocker.style.display = 'block';
-				message.style.display = 'none';
 			}
 		}, false);
 
-        message.innerHTML = document.getElementById('errorMessage').innerHTML;
-		controls.enabled = true;
+        controls.enabled = true;
 	};
 
 	var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
