@@ -12,7 +12,6 @@ class Engine
     public constructor(element: HTMLElement, clearColor: number)
     {
         this.renderer = new THREE.WebGLRenderer();
-        this.renderer = new THREE.WebGLRenderer();
         this.renderer.setClearColor(clearColor);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(window.innerWidth, window.innerHeight);

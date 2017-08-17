@@ -3,7 +3,6 @@ var Engine = (function () {
     function Engine(element, clearColor) {
         this.clock = new THREE.Clock();
         this.renderer = new THREE.WebGLRenderer();
-        this.renderer = new THREE.WebGLRenderer();
         this.renderer.setClearColor(clearColor);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(window.innerWidth, window.innerHeight);
